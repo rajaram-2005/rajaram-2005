@@ -93,18 +93,28 @@ And the signal runs in all I do.
 
 ---
 
-### 🎙️ Narration Audio
-The full piece is recorded as a spoken-word voiceover in `audio/`:
+### 🎙️ Full Narration Track (Auto-Play All Clips Continuous)
+The entire spoken-word anthem is merged into a single continuous soundtrack (`audio/signal-in-the-steel-full.mp3`) that plays automatically upon entering the repository:
 
-| Clip | Section |
-| :--- | :--- |
-| [`signal-in-the-steel-1.mp3`](audio/signal-in-the-steel-1.mp3) | Verse 1 — The Land |
-| [`signal-in-the-steel-2.mp3`](audio/signal-in-the-steel-2.mp3) | Pre-Chorus — The Blind Machine |
-| [`signal-in-the-steel-3.mp3`](audio/signal-in-the-steel-3.mp3) | Chorus |
-| [`signal-in-the-steel-4.mp3`](audio/signal-in-the-steel-4.mp3) | Verse 2 — The Crucible |
-| [`signal-in-the-steel-5.mp3`](audio/signal-in-the-steel-5.mp3) | Verse 3 — The Weapons |
-| [`signal-in-the-steel-6.mp3`](audio/signal-in-the-steel-6.mp3) | Bridge — The Forge of Isolation |
-| [`signal-in-the-steel-7.mp3`](audio/signal-in-the-steel-7.mp3) | Final Verse — The Horizon |
-| [`signal-in-the-steel-8.mp3`](audio/signal-in-the-steel-8.mp3) | Outro — The Standard |
+<p align="center">
+  <audio controls autoplay loop style="width: 100%; max-width: 650px;">
+    <source src="audio/signal-in-the-steel-full.mp3" type="audio/mpeg">
+  </audio>
+</p>
 
-> Played back-to-back, this forms a single ~3-minute narration track to sit under the 4-scene AI video sequence.
+---
+
+### 🎵 Individual Audio Clips
+
+| Clip | Section | Track File | Embedded Player |
+| :--- | :--- | :--- | :--- |
+| Clip 1 | Verse 1 — The Land | [`signal-in-the-steel-1.mp3`](audio/signal-in-the-steel-1.mp3) | <audio controls src="audio/signal-in-the-steel-1.mp3"></audio> |
+| Clip 2 | Pre-Chorus — The Blind Machine | [`signal-in-the-steel-2.mp3`](audio/signal-in-the-steel-2.mp3) | <audio controls src="audio/signal-in-the-steel-2.mp3"></audio> |
+| Clip 3 | Chorus | [`signal-in-the-steel-3.mp3`](audio/signal-in-the-steel-3.mp3) | <audio controls src="audio/signal-in-the-steel-3.mp3"></audio> |
+| Clip 4 | Verse 2 — The Crucible | [`signal-in-the-steel-4.mp3`](audio/signal-in-the-steel-4.mp3) | <audio controls src="audio/signal-in-the-steel-4.mp3"></audio> |
+| Clip 5 | Verse 3 — The Weapons | [`signal-in-the-steel-5.mp3`](audio/signal-in-the-steel-5.mp3) | <audio controls src="audio/signal-in-the-steel-5.mp3"></audio> |
+| Clip 6 | Bridge — The Forge of Isolation | [`signal-in-the-steel-6.mp3`](audio/signal-in-the-steel-6.mp3) | <audio controls src="audio/signal-in-the-steel-6.mp3"></audio> |
+| Clip 7 | Final Verse — The Horizon | [`signal-in-the-steel-7.mp3`](audio/signal-in-the-steel-7.mp3) | <audio controls src="audio/signal-in-the-steel-7.mp3"></audio> |
+| Clip 8 | Outro — The Standard | [`signal-in-the-steel-8.mp3`](audio/signal-in-the-steel-8.mp3) | <audio controls src="audio/signal-in-the-steel-8.mp3"></audio> |
+
+> Played back-to-back, this forms a single ~3-minute narration track. In the web experience (`index.html`) and repository landing page (`README.md`), all clips auto-play sequentially upon entry.

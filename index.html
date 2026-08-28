@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rajaram K — Industrial AI Architect | The Signal in the Steel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #070a12;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --bg-card-active: rgba(0, 217, 255, 0.12);
+            --cyan-primary: #00d9ff;
+            --cyan-glow: rgba(0, 217, 255, 0.4);
+            --cyan-dark: #0088aa;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-card: rgba(0, 217, 255, 0.2);
+            --border-active: #00d9ff;
+            --accent-orange: #ff7700;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(0, 217, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(0, 136, 170, 0.08) 0%, transparent 40%),
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            padding-bottom: 120px;
+            min-height: 100vh;
+        }
+
+        /* Entry Modal Overlay for Browser Autoplay Enforcement */
+        #entry-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(4, 7, 15, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 24px;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #entry-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .entry-content {
+            max-width: 600px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--cyan-primary);
+            box-shadow: 0 0 50px rgba(0, 217, 255, 0.25);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .entry-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--cyan-primary);
+            margin-bottom: 12px;
+            text-shadow: 0 0 20px var(--cyan-glow);
+        }
+
+        .entry-subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 28px;
+        }
+
+        .btn-enter {
+            background: linear-gradient(135deg, #00d9ff 0%, #0088aa 100%);
+            color: #04070f;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 16px 36px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(0, 217, 255, 0.4);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-enter:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 0 35px rgba(0, 217, 255, 0.7);
+        }
+
+        .entry-note {
+            margin-top: 18px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header / Navbar */
+        header {
+            padding: 30px 0 20px;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .header-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--cyan-primary);
+            color: var(--cyan-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--cyan-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            font-weight: 300;
+        }
+
+        /* Hero Banner */
+        .hero-banner-wrap {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-card);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+        }
+
+        .hero-banner-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Autoplay Status Banner */
+        .autoplay-status-bar {
+            background: rgba(0, 217, 255, 0.08);
+            border: 1px solid var(--cyan-primary);
+            border-radius: 8px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        .autoplay-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pulse-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--cyan-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--cyan-primary);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 217, 255, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(0, 217, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 217, 255, 0); }
+        }
+
+        .status-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--cyan-primary);
+        }
+
+        .autoplay-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #334155;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--cyan-primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+            background-color: #04070f;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0, 217, 255, 0.4), transparent);
+        }
+
+        /* Clips Grid / List */
+        .clips-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .clip-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clip-card:hover {
+            border-color: rgba(0, 217, 255, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.1);
+        }
+
+        .clip-card.active {
+            background: var(--bg-card-active);
+            border-color: var(--border-active);
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.25);
+            transform: scale(1.01);
+        }
+
+        .clip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .clip-num-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .clip-badge {
+            background: rgba(0, 217, 255, 0.15);
+            color: var(--cyan-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .clip-card.active .clip-badge {
+            background: var(--cyan-primary);
+            color: #04070f;
+        }
+
+        .clip-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: #ffffff;
+        }
+
+        .now-playing-pill {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 217, 255, 0.2);
+            border: 1px solid var(--cyan-primary);
+            color: var(--cyan-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .clip-card.active .now-playing-pill {
+            display: inline-flex;
+        }
+
+        .clip-lyrics {
+            font-size: 0.98rem;
+            color: #cbd5e1;
+            white-space: pre-line;
+            line-height: 1.7;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border-left: 3px solid var(--cyan-primary);
+            margin-bottom: 16px;
+        }
+
+        .clip-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .btn-play-clip {
+            background: transparent;
+            border: 1px solid var(--cyan-primary);
+            color: var(--cyan-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-play-clip:hover {
+            background: var(--cyan-primary);
+            color: #04070f;
+            box-shadow: 0 0 15px var(--cyan-glow);
+        }
+
+        /* Systems Portfolio Grid */
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .system-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .system-card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--cyan-primary);
+            margin-bottom: 8px;
+        }
+
+        .system-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Sticky Persistent Bottom Audio Player */
+        .persistent-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 23, 0.95);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid var(--cyan-primary);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+            padding: 16px 0;
+            z-index: 1000;
+        }
+
+        .player-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .player-track-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .player-track-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-track-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--cyan-primary);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-control {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--cyan-primary);
+            color: var(--cyan-primary);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-control:hover {
+            background: var(--cyan-primary);
+            color: #04070f;
+            box-shadow: 0 0 15px var(--cyan-glow);
+        }
+
+        .btn-control.main-play {
+            width: 50px;
+            height: 50px;
+            font-size: 1.4rem;
+            background: var(--cyan-primary);
+            color: #04070f;
+            box-shadow: 0 0 20px var(--cyan-glow);
+        }
+
+        .progress-bar-wrap {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .time-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            min-width: 45px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0088aa, var(--cyan-primary));
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Equalizer Animation */
+        .equalizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 18px;
+            padding: 0 8px;
+        }
+
+        .eq-bar {
+            width: 3px;
+            background: var(--cyan-primary);
+            border-radius: 2px;
+            height: 20%;
+        }
+
+        .playing .eq-bar:nth-child(1) { animation: eq 0.8s ease-in-out infinite alternate; }
+        .playing .eq-bar:nth-child(2) { animation: eq 1.1s ease-in-out infinite alternate 0.2s; }
+        .playing .eq-bar:nth-child(3) { animation: eq 0.6s ease-in-out infinite alternate 0.4s; }
+        .playing .eq-bar:nth-child(4) { animation: eq 0.9s ease-in-out infinite alternate 0.1s; }
+
+        @keyframes eq {
+            0% { height: 15%; }
+            100% { height: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .player-inner { flex-direction: column; align-items: stretch; gap: 10px; }
+            .progress-bar-wrap { width: 100%; }
+            .player-controls { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Autoplay Entry Modal -->
+    <div id="entry-overlay">
+        <div class="entry-content">
+            <div class="entry-title">THE SIGNAL IN THE STEEL</div>
+            <div class="entry-subtitle">Continuous Spoken-Word Narration & Industrial AI Experience</div>
+            <button class="btn-enter" id="btn-enter-experience">
+                <span>▶ ENTER REPOSITORY EXPERIENCE</span>
+            </button>
+            <div class="entry-note">⚡ All 8 narration clips auto-play continuously upon entering the repository.</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-badge">RAJARAM K • INDUSTRIAL AI ARCHITECT</div>
+            <h1>The Signal in the Steel</h1>
+            <div class="tagline">7th Sem EEE • Wind Energy Specialist • AeroVigil AI & Aetheris Architect</div>
+        </header>
+
+        <!-- Hero Banner -->
+        <div class="hero-banner-wrap">
+            <img src="assets/hero-banner.png" alt="Rajaram Banner">
+        </div>
+
+        <!-- Autoplay Status Bar -->
+        <div class="autoplay-status-bar">
+            <div class="autoplay-info">
+                <div class="pulse-dot" id="status-pulse"></div>
+                <div class="status-text" id="status-text">Continuous Auto-Playback Active — Full Soundtrack / Clip 1</div>
+            </div>
+            <label class="autoplay-toggle">
+                <span>Auto-play Next Clip</span>
+                <div class="switch">
+                    <input type="checkbox" id="toggle-autoplay" checked>
+                    <span class="slider"></span>
+                </div>
+            </label>
+        </div>
+
+        <!-- Narration Clips Section -->
+        <div class="section-title">🎙️ Narration Script & Audio Clips</div>
+        
+        <div class="clips-container" id="clips-list">
+            <!-- Dynamically populated / structured cards -->
+        </div>
+
+        <!-- Systems Grid -->
+        <div class="section-title">⚙️ Execution Systems</div>
+        <div class="systems-grid">
+            <div class="system-card">
+                <h3>AeroVigil AI</h3>
+                <p>Physics-Guided Bayesian Neural Networks (PG-BNN) predicting turbine mechanical wear & electrical faults with domain precision.</p>
+            </div>
+            <div class="system-card">
+                <h3>AeroZip</h3>
+                <p>High-frequency SCADA telemetry compression algorithm for low-bandwidth remote wind farm communication.</p>
+            </div>
+            <div class="system-card">
+                <h3>Aetheris</h3>
+                <p>Autonomous edge device agent framework executing localized AI decisions without heavy cloud reliance.</p>
+            </div>
+            <div class="system-card">
+                <h3>GreenChamp & IoT</h3>
+                <p>Civic waste vehicle tracking platform & smart energy optimization systems built on low-level microcontroller hardware.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Bottom Player -->
+    <div class="persistent-player">
+        <div class="container">
+            <div class="player-inner">
+                <div class="equalizer" id="equalizer">
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                    <div class="eq-bar"></div>
+                </div>
+                
+                <div class="player-track-info">
+                    <div class="player-track-name" id="current-track-title">Loading narration clips...</div>
+                    <div class="player-track-sub" id="current-track-sub">Track 1 of 8</div>
+                </div>
+
+                <div class="player-controls">
+                    <button class="btn-control" id="btn-prev" title="Previous Clip">⏮</button>
+                    <button class="btn-control main-play" id="btn-play-pause" title="Play/Pause">▶</button>
+                    <button class="btn-control" id="btn-next" title="Next Clip">⏭</button>
+                </div>
+
+                <div class="progress-bar-wrap">
+                    <span class="time-display" id="time-current">0:00</span>
+                    <div class="progress-bar" id="progress-bar-container">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <span class="time-display" id="time-total">0:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Audio Element -->
+    <audio id="main-audio-player" preload="auto"></audio>
+
+    <script>
+        const clips = [
+            {
+                id: 'FULL',
+                file: 'audio/signal-in-the-steel-full.mp3',
+                title: 'Full Continuous Soundtrack (All Clips Combined)',
+                lyrics: `Born where the wind titans stand, steel and copper on the land...\n[Complete 8-Verse Continuous Narration & Soundtrack Track]`
+            },
+            {
+                id: 1,
+                file: 'audio/signal-in-the-steel-1.mp3',
+                title: 'Verse 1 — The Land',
+                lyrics: `Born where the wind titans stand,\nSteel and copper on the land.\nBefore a line of code, I read\nThe heavy load the turbines need:\nThe sheared gear teeth, the burning coil,\nThe quiet math of steel's toil.\nAnd heard a question in the hum:\nWhat if we could see what is to come?`
+            },
+            {
+                id: 2,
+                file: 'audio/signal-in-the-steel-2.mp3',
+                title: 'Pre-Chorus — The Blind Machine',
+                lyrics: `A turbine turns but cannot see\nThe break that waits inside of me.\nNo eyes to read its shuddering frame —\nSo I would give it one… a name.\nThey build with black box, blind and cold;\nBut I was raised where steel is real,\nWhere every bearing has to feel\nThe truth the sensors keep inside.`
+            },
+            {
+                id: 3,
+                file: 'audio/signal-in-the-steel-3.mp3',
+                title: 'Chorus',
+                lyrics: `A mind inside the iron, a signal in the steel,\nI teach the metal how to feel.\nFrom every hum a prophecy —\nThe future that the machine can see.\nCyan light and quiet fire,\nI build the eyes that never tire.\nOne vision running through the wire —\nThe standard I was forged to raise.`
+            },
+            {
+                id: 4,
+                file: 'audio/signal-in-the-steel-4.mp3',
+                title: 'Verse 2 — The Crucible',
+                lyrics: `Chennai's walls, a crucible.\nC in the gut of a sleeping chip,\nA sensor's mute and scattered grip.\nI went down to IIT's hall\nTo measure where the giants fall.\nAt enterprise steel I learned the weight:\nHow theory breaks at the enterprise gate,\nHow silence in a test report\nIs where the real lessons are taught.`
+            },
+            {
+                id: 5,
+                file: 'audio/signal-in-the-steel-5.mp3',
+                title: 'Verse 3 — The Weapons',
+                lyrics: `I did not build a pretty app,\nI built the mind that fills the gaps.\nAeroVigil knows the laws of strain,\nThe physics underneath the hiss.\nAeroZip folds the flood into a thread.\nAetheris walks the edge alone,\nDeciding where the metal ends.\nGreenChamp maps the streets,\nWhile classroom watts are saved by code —\nThe smallest wins along the road.`
+            },
+            {
+                id: 6,
+                file: 'audio/signal-in-the-steel-6.mp3',
+                title: 'Bridge — The Forge of Isolation',
+                lyrics: `The path is lonely, that is true,\nBut loneliness is not a rue —\nIt is the quiet where a mind\nCan sharpen what the world left blind.\nFrom every failure I have known,\nA stronger alloy has been grown.`
+            },
+            {
+                id: 7,
+                file: 'audio/signal-in-the-steel-7.mp3',
+                title: 'Final Verse — The Horizon',
+                lyrics: `They ask me why I leave the shore.\nA southern coast, a rising sun,\nA continent that calls me on.\nI bring no armies, only light,\nSix papers in the quiet dark\nTo mark the borders of my mark.`
+            },
+            {
+                id: 8,
+                file: 'audio/signal-in-the-steel-8.mp3',
+                title: 'Outro — The Standard',
+                lyrics: `So let the long road be my own,\nA field of towers I have grown.\nFrom the first gear tooth I ever seen\nTo the last horizon yet unseen,\nThe work is one, the thread is true —\nAnd the signal runs in all I do.`
+            }
+        ];
+
+        let currentIndex = 0; // Default to Full Combined Track
+        let isAutoplayEnabled = true;
+
+        const audioPlayer = document.getElementById('main-audio-player');
+        const clipsList = document.getElementById('clips-list');
+        const entryOverlay = document.getElementById('entry-overlay');
+        const btnEnter = document.getElementById('btn-enter-experience');
+        const btnPlayPause = document.getElementById('btn-play-pause');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        const currentTrackTitle = document.getElementById('current-track-title');
+        const currentTrackSub = document.getElementById('current-track-sub');
+        const statusText = document.getElementById('status-text');
+        const equalizer = document.getElementById('equalizer');
+        const timeCurrent = document.getElementById('time-current');
+        const timeTotal = document.getElementById('time-total');
+        const progressFill = document.getElementById('progress-fill');
+        const progressBarContainer = document.getElementById('progress-bar-container');
+        const toggleAutoplay = document.getElementById('toggle-autoplay');
+
+        // Render Clips Cards
+        function renderClips() {
+            clipsList.innerHTML = clips.map((clip, index) => `
+                <div class="clip-card ${index === currentIndex ? 'active' : ''}" id="clip-card-${index}">
+                    <div class="clip-header">
+                        <div class="clip-num-title">
+                            <span class="clip-badge">${clip.id === 'FULL' ? 'MASTER TRACK' : 'CLIP ' + clip.id}</span>
+                            <span class="clip-title">${clip.title}</span>
+                        </div>
+                        <span class="now-playing-pill">● NOW PLAYING</span>
+                    </div>
+                    <div class="clip-lyrics">${clip.lyrics}</div>
+                    <div class="clip-actions">
+                        <button class="btn-play-clip" onclick="playClipIndex(${index})">
+                            <span>${index === currentIndex && !audioPlayer.paused ? '⏸ Pause Clip' : '▶ Play Clip'}</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadClip(index) {
+            if (index < 0 || index >= clips.length) return;
+            currentIndex = index;
+            const clip = clips[currentIndex];
+            audioPlayer.src = clip.file;
+            currentTrackTitle.textContent = clip.title;
+            currentTrackSub.textContent = clip.id === 'FULL' ? 'Master Combined Track' : `Clip ${clip.id} of ${clips.length - 1}`;
+            statusText.textContent = `Continuous Auto-Playback Active — ${clip.title}`;
+            
+            // Update Card UI
+            document.querySelectorAll('.clip-card').forEach((card, idx) => {
+                if (idx === currentIndex) {
+                    card.classList.add('active');
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+            renderClips();
+        }
+
+        function playClipIndex(index) {
+            if (currentIndex === index && !audioPlayer.paused) {
+                audioPlayer.pause();
+            } else {
+                loadClip(index);
+                audioPlayer.play().catch(err => console.log('Playback error:', err));
+            }
+        }
+
+        function startPlaybackSequence() {
+            entryOverlay.classList.add('hidden');
+            loadClip(currentIndex);
+            audioPlayer.play().catch(err => console.log('Autoplay blocked:', err));
+        }
+
+        // Event Listeners
+        btnEnter.addEventListener('click', startPlaybackSequence);
+
+        entryOverlay.addEventListener('click', (e) => {
+            if (e.target.closest('.entry-content')) return;
+            startPlaybackSequence();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderClips();
+            loadClip(0);
+            
+            // Attempt autoplay
+            const playPromise = audioPlayer.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    entryOverlay.classList.add('hidden');
+                }).catch(() => {
+                    console.log('Awaiting user gesture for autoplay...');
+                });
+            }
+        });
+
+        btnPlayPause.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                if (!audioPlayer.src) loadClip(currentIndex);
+                audioPlayer.play();
+            } else {
+                audioPlayer.pause();
+            }
+        });
+
+        btnPrev.addEventListener('click', () => {
+            let prevIndex = currentIndex - 1;
+            if (prevIndex < 0) prevIndex = clips.length - 1;
+            loadClip(prevIndex);
+            audioPlayer.play();
+        });
+
+        btnNext.addEventListener('click', () => {
+            let nextIndex = currentIndex + 1;
+            if (nextIndex >= clips.length) nextIndex = 0;
+            loadClip(nextIndex);
+            audioPlayer.play();
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            if (isAutoplayEnabled) {
+                let nextIndex = currentIndex + 1;
+                if (nextIndex < clips.length) {
+                    loadClip(nextIndex);
+                    audioPlayer.play();
+                } else {
+                    loadClip(0);
+                    audioPlayer.play();
+                }
+            }
+        });
+
+        audioPlayer.addEventListener('play', () => {
+            btnPlayPause.textContent = '⏸';
+            equalizer.classList.add('playing');
+            renderClips();
+        });
+
+        audioPlayer.addEventListener('pause', () => {
+            btnPlayPause.textContent = '▶';
+            equalizer.classList.remove('playing');
+            renderClips();
+        });
+
+        audioPlayer.addEventListener('timeupdate', () => {
+            if (audioPlayer.duration) {
+                const current = audioPlayer.currentTime;
+                const total = audioPlayer.duration;
+                progressFill.style.width = `${(current / total) * 100}%`;
+                
+                timeCurrent.textContent = formatTime(current);
+                timeTotal.textContent = formatTime(total);
+            }
+        });
+
+        progressBarContainer.addEventListener('click', (e) => {
+            const rect = progressBarContainer.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            if (audioPlayer.duration) {
+                audioPlayer.currentTime = (clickX / width) * audioPlayer.duration;
+            }
+        });
+
+        toggleAutoplay.addEventListener('change', (e) => {
+            isAutoplayEnabled = e.target.checked;
+        });
+
+        function formatTime(secs) {
+            const m = Math.floor(secs / 60);
+            const s = Math.floor(secs % 60);
+            return `${m}:${s < 10 ? '0' : ''}${s}`;
+        }
+    </script>
+</body>
+</html>

@@ -6,6 +6,17 @@
 <!-- Professional Hero Banner -->
 <img src="assets/hero-banner.png" width="100%" alt="Rajaram — Offshore Wind Energy and Industrial AI" />
 
+<!-- Auto-Play Narration Audio Player on Repo Entry -->
+<br>
+<p align="center">
+  <b>🔊 "The Signal in the Steel" — Continuous Narration & Soundtrack</b><br>
+  <i>All 8 narration clips auto-play continuously upon entering the repo</i><br><br>
+  <audio controls autoplay loop style="width: 80%; max-width: 600px;">
+    <source src="audio/signal-in-the-steel-full.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</p>
+
 <!-- Glowing Divider -->
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="80%" />
 
@@ -98,10 +109,22 @@ Engineering needs cold, mathematical logic, but sustaining an ambitious project 
   <img src="https://komarev.com/ghpvc/?username=rajaram-2005&style=flat-square&color=00D9FF" alt="Profile views" />
 </div>
 
-## 🎧 The Soundtrack
+## 🎧 The Soundtrack — "The Signal in the Steel"
 
 <p align="center">
+  <b>Full Continuous Soundtrack (All Clips Combined):</b><br>
+  <audio controls autoplay loop style="width: 80%; max-width: 600px;">
+    <source src="audio/signal-in-the-steel-full.mp3" type="audio/mpeg">
+  </audio>
+</p>
+
+<p align="center">
+  <a href="index.html">
+    <img src="https://img.shields.io/badge/▶-%20Interactive%20Web%20Audio%20Player-00D9FF?style=for-the-badge" alt="Interactive Web Audio Player" />
+  </a>
   <a href="the-rise-of-rajaram-song.md">
-    <img src="https://img.shields.io/badge/🎙-%20Narration%20Script-00D9FF?style=for-the-badge" alt="Narration Script" />
+    <img src="https://img.shields.io/badge/🎙-%20Narration%20Script%20%26%20Clips-00D9FF?style=for-the-badge" alt="Narration Script & Clips" />
   </a>
 </p>
+
+*All 8 narration audio clips automatically play sequentially from start to finish upon entry.*
