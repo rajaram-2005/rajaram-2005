@@ -587,9 +587,9 @@
             <div class="entry-title">THE SIGNAL IN THE STEEL</div>
             <div class="entry-subtitle">Continuous Spoken-Word Narration & Industrial AI Experience</div>
             <button class="btn-enter" id="btn-enter-experience">
-                <span>▶ ENTER EXPERIENCE</span>
+                <span>▶ ENTER REPOSITORY EXPERIENCE</span>
             </button>
-            <div class="entry-note">⚡ All 8 audio clips will auto-play sequentially upon entry.</div>
+            <div class="entry-note">⚡ All 8 narration clips auto-play continuously upon entering the repository.</div>
         </div>
     </div>
 
@@ -610,7 +610,7 @@
         <div class="autoplay-status-bar">
             <div class="autoplay-info">
                 <div class="pulse-dot" id="status-pulse"></div>
-                <div class="status-text" id="status-text">Continuous Auto-Playback Active — Clip 1 / 8</div>
+                <div class="status-text" id="status-text">Continuous Auto-Playback Active — Full Soundtrack / Clip 1</div>
             </div>
             <label class="autoplay-toggle">
                 <span>Auto-play Next Clip</span>
@@ -689,6 +689,12 @@
     <script>
         const clips = [
             {
+                id: 'FULL',
+                file: 'audio/signal-in-the-steel-full.mp3',
+                title: 'Full Continuous Soundtrack (All Clips Combined)',
+                lyrics: `Born where the wind titans stand, steel and copper on the land...\n[Complete 8-Verse Continuous Narration & Soundtrack Track]`
+            },
+            {
                 id: 1,
                 file: 'audio/signal-in-the-steel-1.mp3',
                 title: 'Verse 1 — The Land',
@@ -738,9 +744,8 @@
             }
         ];
 
-        let currentIndex = 0;
+        let currentIndex = 0; // Default to Full Combined Track
         let isAutoplayEnabled = true;
-        let userInteracted = false;
 
         const audioPlayer = document.getElementById('main-audio-player');
         const clipsList = document.getElementById('clips-list');
@@ -765,7 +770,7 @@
                 <div class="clip-card ${index === currentIndex ? 'active' : ''}" id="clip-card-${index}">
                     <div class="clip-header">
                         <div class="clip-num-title">
-                            <span class="clip-badge">CLIP ${clip.id}</span>
+                            <span class="clip-badge">${clip.id === 'FULL' ? 'MASTER TRACK' : 'CLIP ' + clip.id}</span>
                             <span class="clip-title">${clip.title}</span>
                         </div>
                         <span class="now-playing-pill">● NOW PLAYING</span>
@@ -786,8 +791,8 @@
             const clip = clips[currentIndex];
             audioPlayer.src = clip.file;
             currentTrackTitle.textContent = clip.title;
-            currentTrackSub.textContent = `Clip ${clip.id} of ${clips.length}`;
-            statusText.textContent = `Continuous Auto-Playback Active — Clip ${clip.id} / ${clips.length}`;
+            currentTrackSub.textContent = clip.id === 'FULL' ? 'Master Combined Track' : `Clip ${clip.id} of ${clips.length - 1}`;
+            statusText.textContent = `Continuous Auto-Playback Active — ${clip.title}`;
             
             // Update Card UI
             document.querySelectorAll('.clip-card').forEach((card, idx) => {
@@ -811,39 +816,29 @@
         }
 
         function startPlaybackSequence() {
-            userInteracted = true;
             entryOverlay.classList.add('hidden');
             loadClip(currentIndex);
-            audioPlayer.play().then(() => {
-                console.log('Playback started successfully.');
-            }).catch(err => {
-                console.log('Autoplay blocked:', err);
-            });
+            audioPlayer.play().catch(err => console.log('Autoplay blocked:', err));
         }
 
         // Event Listeners
         btnEnter.addEventListener('click', startPlaybackSequence);
 
-        // Allow click anywhere on the entry overlay to trigger start
         entryOverlay.addEventListener('click', (e) => {
             if (e.target.closest('.entry-content')) return;
             startPlaybackSequence();
         });
 
-        // Attempt unmuted autoplay immediately on page load in case browser permits it
         window.addEventListener('DOMContentLoaded', () => {
             renderClips();
             loadClip(0);
             
-            // Try silent/direct play test
+            // Attempt autoplay
             const playPromise = audioPlayer.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
-                    // Autoplay succeeded natively!
                     entryOverlay.classList.add('hidden');
-                    userInteracted = true;
                 }).catch(() => {
-                    // Autoplay restricted by browser policy; user clicks "ENTER EXPERIENCE" modal
                     console.log('Awaiting user gesture for autoplay...');
                 });
             }
@@ -872,7 +867,6 @@
             audioPlayer.play();
         });
 
-        // Auto-play Next Clip when current finishes
         audioPlayer.addEventListener('ended', () => {
             if (isAutoplayEnabled) {
                 let nextIndex = currentIndex + 1;
@@ -880,7 +874,6 @@
                     loadClip(nextIndex);
                     audioPlayer.play();
                 } else {
-                    // Reached end of all clips -> loop back to Clip 1 automatically
                     loadClip(0);
                     audioPlayer.play();
                 }
