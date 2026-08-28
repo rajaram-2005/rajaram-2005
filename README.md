@@ -101,7 +101,12 @@ Engineering needs cold, mathematical logic, but sustaining an ambitious project 
 ## 🎧 The Soundtrack
 
 <p align="center">
+  <a href="index.html">
+    <img src="https://img.shields.io/badge/▶-%20Launch%20Auto--Play%20Audio%20Experience-00D9FF?style=for-the-badge" alt="Launch Auto-Play Audio Experience" />
+  </a>
   <a href="the-rise-of-rajaram-song.md">
     <img src="https://img.shields.io/badge/🎙-%20Narration%20Script-00D9FF?style=for-the-badge" alt="Narration Script" />
   </a>
 </p>
+
+*All 8 narration audio clips automatically play sequentially from start to finish upon entry.*

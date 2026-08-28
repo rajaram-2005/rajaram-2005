@@ -93,18 +93,18 @@ And the signal runs in all I do.
 
 ---
 
-### 🎙️ Narration Audio
-The full piece is recorded as a spoken-word voiceover in `audio/`:
+### 🎙️ Narration Audio & Auto-Play Experience
+The full piece is recorded as a spoken-word voiceover in `audio/`. Launch [**`index.html`**](index.html) to listen with automatic continuous playback of all 8 clips upon entry:
 
-| Clip | Section |
-| :--- | :--- |
-| [`signal-in-the-steel-1.mp3`](audio/signal-in-the-steel-1.mp3) | Verse 1 — The Land |
-| [`signal-in-the-steel-2.mp3`](audio/signal-in-the-steel-2.mp3) | Pre-Chorus — The Blind Machine |
-| [`signal-in-the-steel-3.mp3`](audio/signal-in-the-steel-3.mp3) | Chorus |
-| [`signal-in-the-steel-4.mp3`](audio/signal-in-the-steel-4.mp3) | Verse 2 — The Crucible |
-| [`signal-in-the-steel-5.mp3`](audio/signal-in-the-steel-5.mp3) | Verse 3 — The Weapons |
-| [`signal-in-the-steel-6.mp3`](audio/signal-in-the-steel-6.mp3) | Bridge — The Forge of Isolation |
-| [`signal-in-the-steel-7.mp3`](audio/signal-in-the-steel-7.mp3) | Final Verse — The Horizon |
-| [`signal-in-the-steel-8.mp3`](audio/signal-in-the-steel-8.mp3) | Outro — The Standard |
+| Clip | Section | Track File |
+| :--- | :--- | :--- |
+| Clip 1 | Verse 1 — The Land | [`signal-in-the-steel-1.mp3`](audio/signal-in-the-steel-1.mp3) |
+| Clip 2 | Pre-Chorus — The Blind Machine | [`signal-in-the-steel-2.mp3`](audio/signal-in-the-steel-2.mp3) |
+| Clip 3 | Chorus | [`signal-in-the-steel-3.mp3`](audio/signal-in-the-steel-3.mp3) |
+| Clip 4 | Verse 2 — The Crucible | [`signal-in-the-steel-4.mp3`](audio/signal-in-the-steel-4.mp3) |
+| Clip 5 | Verse 3 — The Weapons | [`signal-in-the-steel-5.mp3`](audio/signal-in-the-steel-5.mp3) |
+| Clip 6 | Bridge — The Forge of Isolation | [`signal-in-the-steel-6.mp3`](audio/signal-in-the-steel-6.mp3) |
+| Clip 7 | Final Verse — The Horizon | [`signal-in-the-steel-7.mp3`](audio/signal-in-the-steel-7.mp3) |
+| Clip 8 | Outro — The Standard | [`signal-in-the-steel-8.mp3`](audio/signal-in-the-steel-8.mp3) |
 
-> Played back-to-back, this forms a single ~3-minute narration track to sit under the 4-scene AI video sequence.
+> Played back-to-back, this forms a single ~3-minute narration track. In the web experience (`index.html`), all clips auto-play sequentially upon entry.
