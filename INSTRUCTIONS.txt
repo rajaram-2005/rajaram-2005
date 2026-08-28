@@ -1,0 +1,9 @@
+HOW TO ADD YOUR AUDIO FILES:
+1. Extract this ZIP file.
+2. Take the 3 audio files you have:
+   - The_Throne_Left_Behind.mp3
+   - The_Throne_Left_Behind_2.mp3
+   - அரியாசனம்_வெறும்_பாறை.mp3
+3. Drag and drop them directly into this folder (next to the README.md).
+4. Push the entire folder to your GitHub repository (rajaram-2005).
+5. The buttons in the README will automatically link to your uploaded audio files!
